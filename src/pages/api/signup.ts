@@ -33,7 +33,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       id: user.id,
       time: Date.now(),
     },
-    "hello-test",
+    process.env.JWT_SECRET_KEY || "hello-test",
     { expiresIn: "8h" }
   );
 
