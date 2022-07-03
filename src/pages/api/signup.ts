@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import cookie from "cookie";
 
-import prisma from "../../../lib/prismaClient";
+import prisma from "../../lib/prismaClient";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   // todo: check if it's a POST request
