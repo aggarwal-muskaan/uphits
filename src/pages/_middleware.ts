@@ -11,7 +11,8 @@ export const middleware = (req: NextRequest) => {
     const accessToken = req.cookies.ACCESS_TOKEN;
 
     if (!accessToken) {
-      return NextResponse.redirect(new URL("/login", req.url));
+      return NextResponse.redirect("/login");
+      // return NextResponse.redirect(new URL("/login", req.url));
     }
   }
 };
