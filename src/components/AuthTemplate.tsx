@@ -14,7 +14,7 @@ function AuthTemplate(props: TAuthTemplate) {
         alignItems="center"
         justifyContent="center"
       >
-        <Box w="60px" h="100%" ml="2rem">
+        <Box w="60px" h="100%">
           <IconContext.Provider value={{ color: "#4db6ac", size: "100%" }}>
             <BsMusicNoteList />
           </IconContext.Provider>
@@ -27,7 +27,7 @@ function AuthTemplate(props: TAuthTemplate) {
       <Divider color="gray.400" />
 
       <Flex justifyContent="center">
-        <Box maxW="500px" mt="3rem">
+        <Box maxW="500px" mt="3rem" minW="300px" w="90%">
           {props.form}
         </Box>
       </Flex>
