@@ -2,8 +2,13 @@ import { Button } from "@chakra-ui/react";
 import { TButton } from "../../types";
 
 export function FilledAuthButton(props: TButton) {
+  const { text, handleOnClick, buttonType, loadingState } = props;
+
   return (
     <Button
+      onClick={handleOnClick}
+      type={buttonType || "button"}
+      isLoading={loadingState}
       colorScheme="teal"
       borderRadius="500px"
       p="22px 32px"
@@ -15,14 +20,19 @@ export function FilledAuthButton(props: TButton) {
         transform: "scale(1.04)",
       }}
     >
-      {props.text}
+      {text}
     </Button>
   );
 }
 
 export function OutlinedButton(props: TButton) {
+  const { text, handleOnClick, buttonType, loadingState } = props;
+
   return (
     <Button
+      onClick={handleOnClick}
+      type={buttonType || "button"}
+      isLoading={loadingState}
       variant="outline"
       w="100%"
       fontSize="0.9rem"
@@ -34,8 +44,9 @@ export function OutlinedButton(props: TButton) {
       color="gray.600"
       borderColor="gray.400"
       _hover={{ backgroundColor: "transparent", borderColor: "gray.800" }}
+      _focus={{ backgroundColor: "transparent", borderColor: "unset" }}
     >
-      {props.text}
+      {text}
     </Button>
   );
 }
