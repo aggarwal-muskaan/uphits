@@ -1,14 +1,35 @@
-import { Flex, Text } from "@chakra-ui/layout";
+import React from "react";
+import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
-import AuthTemplate from "../components/AuthTemplate";
+import { Flex, Text } from "@chakra-ui/layout";
+
 import ControlledInputField from "../components/shared/ControlledInputField";
 import { OutlinedButton, FilledAuthButton } from "../components/shared/Button";
+import AuthTemplate from "../components/AuthTemplate";
+import { EMAIL } from "../lib/regex";
+import { TLogin } from "../types";
 
 function Login() {
-  const { control } = useForm();
+  const [isLoading, setIsLoading] = React.useState(false);
+  const router = useRouter();
+
+  const { control, handleSubmit } = useForm<TLogin>({
+    defaultValues: { email: "", password: "" },
+    mode: "all",
+  });
+
+  const submitForm = () => {
+    // e.preventDefault();
+    setIsLoading(true);
+
+    // await auth(data);
+    setIsLoading(false);
+    router.push("/");
+  };
+
   const loginForm = (
     <>
-      <form>
+      <form onSubmit={handleSubmit(submitForm)}>
         <Text fontSize="14px" fontWeight="bold" mb="1.5rem" textAlign="center">
           To continue, log in to uphits.
         </Text>
@@ -17,7 +38,10 @@ function Login() {
           control={control}
           label="Email address"
           placeholder="Email address"
-          rules={{ required: "Please enter your email address." }}
+          rules={{
+            required: "Please enter your email address.",
+            pattern: { value: EMAIL, message: "Invalid Email" },
+          }}
         />
         <ControlledInputField
           name="password"
@@ -31,7 +55,11 @@ function Login() {
           justifyContent="flex-end"
           borderBottom="2px solid rgb(217, 218, 220)"
         >
-          <FilledAuthButton text="LOG IN" />
+          <FilledAuthButton
+            text="LOG IN"
+            buttonType="submit"
+            loadingState={isLoading}
+          />
         </Flex>
       </form>
 
@@ -39,7 +67,10 @@ function Login() {
         Don't have an account?
       </Text>
 
-      <OutlinedButton text="SIGN UP FOR UPHITS" />
+      <OutlinedButton
+        text="SIGN UP FOR UPHITS"
+        handleOnClick={() => router.push("/signup")}
+      />
     </>
   );
 
