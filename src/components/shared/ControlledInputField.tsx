@@ -40,10 +40,9 @@ const ControlledInputField = <T extends FieldValues>({
       defaultValue={defaultValue}
       rules={rules}
       render={({
-        field: { onChange, onBlur, value, name, ref },
+        field: { onChange, onBlur, value, name },
         fieldState: { error },
       }) => {
-        console.log("hellooo", error);
         return (
           <FormControl isInvalid={!!error} mb="1rem">
             <FormLabel
@@ -74,7 +73,7 @@ const ControlledInputField = <T extends FieldValues>({
                 border: "2px solid black",
               }}
             />
-            <FormErrorMessage>{error}</FormErrorMessage>
+            {error && <FormErrorMessage>{error.message}</FormErrorMessage>}
           </FormControl>
         );
       }}
