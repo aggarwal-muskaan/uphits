@@ -67,8 +67,9 @@ const ControlledInputField = <T extends FieldValues>({
               w="100%"
               fontSize="1rem"
               fontWeight="400"
+              borderColor="gray.500"
               _hover={{ borderColor: "unset" }}
-              _placeholder={{ color: "gray.500" }}
+              _placeholder={{ color: "gray.600" }}
               _focus={{
                 border: "2px solid black",
               }}
