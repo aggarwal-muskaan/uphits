@@ -70,7 +70,7 @@ const ControlledInputField = <T extends FieldValues>({
               _hover={{ borderColor: "unset" }}
               _placeholder={{ color: "gray.600" }}
               _focus={{
-                border: "2px solid black",
+                border: error ? "" : "2px solid black",
               }}
             />
             {error && <FormErrorMessage>{error.message}</FormErrorMessage>}
