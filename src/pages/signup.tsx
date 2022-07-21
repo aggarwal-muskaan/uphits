@@ -43,7 +43,6 @@ function Signup() {
 
     // await auth(data);
     setIsLoading(false);
-    alert("oops!!");
     // router.push("/");
   };
 
