@@ -20,3 +20,9 @@ export type TSignup = {
   newPassword: string;
   profileName: string;
 };
+
+export type TapiResponse = {
+  code: number;
+  message: string;
+  result?: unknown;
+};
