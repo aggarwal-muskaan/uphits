@@ -2,17 +2,20 @@ import React, { useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
+import { useToast } from "@chakra-ui/react";
 import { Flex, Heading, Text } from "@chakra-ui/layout";
 
 import AuthTemplate from "../components/AuthTemplate";
 import ControlledInputField from "../components/shared/ControlledInputField";
 import { FilledAuthButton } from "../components/shared/Button";
 import { EMAIL, TRIM_STRING } from "../lib/regex";
+import fetcher from "../lib/fetcher";
 import { TSignup } from "../types";
 
 function Signup() {
   const [isLoading, setIsLoading] = React.useState(false);
   const router = useRouter();
+  const toast = useToast();
 
   const { control, handleSubmit, watch, setError, clearErrors } =
     useForm<TSignup>({
@@ -37,13 +40,26 @@ function Signup() {
       clearErrors("confirmEmail");
   }, [email]);
 
-  const submitForm = () => {
-    // e.preventDefault();
+  const submitForm = async (data: TSignup) => {
     setIsLoading(true);
 
-    // await auth(data);
+    const obj = {
+      email: data.email.toLowerCase().trim(),
+      password: data.newPassword,
+      firstName: data.profileName.trim(),
+    };
+
+    const response = await fetcher("POST", "/signup", obj);
+    if (response.code === 200) router.push("/");
+    else
+      toast({
+        title: response.message,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+
     setIsLoading(false);
-    // router.push("/");
   };
 
   const signupForm = (

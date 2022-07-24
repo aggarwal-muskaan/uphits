@@ -1,30 +1,40 @@
 import React from "react";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
+import { useToast } from "@chakra-ui/react";
 import { Flex, Text } from "@chakra-ui/layout";
 
 import ControlledInputField from "../components/shared/ControlledInputField";
 import { OutlinedButton, FilledAuthButton } from "../components/shared/Button";
 import AuthTemplate from "../components/AuthTemplate";
+import fetcher from "../lib/fetcher";
 import { EMAIL } from "../lib/regex";
 import { TLogin } from "../types";
 
 function Login() {
   const [isLoading, setIsLoading] = React.useState(false);
   const router = useRouter();
+  const toast = useToast();
 
   const { control, handleSubmit } = useForm<TLogin>({
     defaultValues: { email: "", password: "" },
     mode: "all",
   });
 
-  const submitForm = () => {
-    // e.preventDefault();
+  const submitForm = async (data: TLogin) => {
     setIsLoading(true);
 
-    // await auth(data);
+    const response = await fetcher("POST", "/login", data);
+    if (response.code === 200) router.push("/");
+    else
+      toast({
+        title: response.message,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+
     setIsLoading(false);
-    router.push("/");
   };
 
   const loginForm = (
