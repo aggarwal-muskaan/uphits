@@ -1,6 +1,10 @@
-const fetcher = async (url: string, data = undefined) => {
+const fetcher = async (
+  method: "POST" | "GET" | "PUT",
+  url: string,
+  data = undefined
+) => {
   return fetch(`${window.location.origin}/api${url}`, {
-    method: data ? "POST" : "GET",
+    method: method,
     credentials: "include",
     headers: {
       "Content-Type": "application/json",
