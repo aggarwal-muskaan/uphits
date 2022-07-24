@@ -31,7 +31,7 @@
     "react-icons": "4.3.1",
     "reset-css": "5.0.1",
     "swr": "1.1.1",
-    "typescript": "4.7.4"
+    "typescript": "4.4.4"
   },
   "devDependencies": {
     "@types/bcrypt": "5.0.0",
@@ -59,6 +59,6 @@
     "npm": "6.14.15"
   },
   "prisma": {
-    "seed": "ts-node prisma/seed.ts"
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
   }
 }
