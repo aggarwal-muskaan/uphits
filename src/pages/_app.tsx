@@ -8,9 +8,13 @@ import PlayerTemplate from "../components/PlayerTemplate";
 function MyApp({ Component, pageProps }) {
   return (
     <ChakraProvider theme={theme} resetCSS={true}>
-      <PlayerTemplate>
+      {Component.authPage ? (
         <Component {...pageProps} />
-      </PlayerTemplate>
+      ) : (
+        <PlayerTemplate>
+          <Component {...pageProps} />
+        </PlayerTemplate>
+      )}
     </ChakraProvider>
   );
 }
