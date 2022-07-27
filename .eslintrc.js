@@ -19,6 +19,8 @@ module.exports = {
     "react/prop-types": "off",
     "react/jsx-props-no-spreading": "off",
     "import/prefer-default-export": "off",
+    // "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["error"],
     "no-param-reassign": "off",
     "import/extensions": [
       "error",
@@ -32,11 +34,25 @@ module.exports = {
     "arrow-body-style": "off",
     "prefer-arrow-callback": "off",
     "react/jsx-filename-extension": "off",
+    // "react/function-component-definition": [
+    //   "error",
+    //   {
+    //     namedComponents: "arrow-function",
+    //     unnamedComponents: "arrow-function",
+    //   },
+    // ],
     "react/function-component-definition": [
+      2,
+      {
+        namedComponents: "function-declaration",
+      },
+    ],
+    "jsx-a11y/anchor-is-valid": [
       "error",
       {
-        namedComponents: "arrow-function",
-        unnamedComponents: "arrow-function",
+        components: ["Link"],
+        specialLink: ["hrefLeft", "hrefRight"],
+        aspects: ["invalidHref", "preferButton"],
       },
     ],
     "prettier/prettier": "warn",
