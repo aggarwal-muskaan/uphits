@@ -1,4 +1,7 @@
+import { Playlist } from "@prisma/client";
 import React, { useState } from "react";
+import useSWR from "swr";
+import fetcher from "./fetcher";
 
 export const useInput = (initialValue: {}): [
   any,
@@ -19,4 +22,24 @@ export const useInput = (initialValue: {}): [
   };
 
   return [state, handleInputChange, resetInputFields];
+};
+
+export const useUser = () => {
+  const { data, error } = useSWR("/me", fetcher);
+
+  return { user: data, isLoading: !data && !error, isError: error };
+};
+
+export const usePlaylist = () => {
+  const { data, error } = useSWR(["GET", "/playlist"], fetcher);
+
+  let playlists: Playlist[];
+  if (data && data.code === 200) playlists = data.result;
+  else playlists = [];
+
+  return {
+    playlists,
+    isLoading: !data && !error,
+    isError: error || (data && data.code !== 200),
+  };
 };
