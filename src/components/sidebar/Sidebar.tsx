@@ -14,6 +14,8 @@ import { MdHomeFilled, MdSearch, MdAddBox, MdFavorite } from "react-icons/md";
 import { BiLibrary } from "react-icons/bi";
 import { IconContext } from "react-icons";
 
+import { usePlaylist } from "../../lib/customHooks";
+
 function Sidebar() {
   const navMenu = [
     {
@@ -43,7 +45,8 @@ function Sidebar() {
 
   const styles = React.useMemo(() => ({ color: "#4db6ac", size: "100%" }), []);
 
-  const playlists = new Array(20).fill(1).map((_, i) => `Playlist ${i + 1}`);
+  const { playlists, isLoading, isError } = usePlaylist();
+  // console.log(playlists);
 
   return (
     <>
@@ -139,7 +142,7 @@ function Sidebar() {
         <List spacing={2}>
           {playlists.map((playlist) => (
             <Link
-              key={playlist}
+              key={playlist.id}
               href="/"
               // href={{
               //   pathname: "/playlist/[id]",
@@ -148,7 +151,7 @@ function Sidebar() {
               passHref
             >
               <a>
-                <ListItem p="5px 29px">{playlist}</ListItem>
+                <ListItem p="5px 29px">{playlist.name}</ListItem>
               </a>
             </Link>
           ))}
