@@ -1,3 +1,4 @@
+import React from "react";
 import Link from "next/link";
 import {
   Box,
@@ -40,6 +41,8 @@ function Sidebar() {
     { id: "2", label: "Liked Songs", icon: MdFavorite, route: "/favorites" },
   ];
 
+  const styles = React.useMemo(() => ({ color: "#4db6ac", size: "100%" }), []);
+
   const playlists = new Array(20).fill(1).map((_, i) => `Playlist ${i + 1}`);
 
   return (
@@ -48,11 +51,11 @@ function Sidebar() {
         <a>
           <Flex w="100%" h="60px" mb="18px" display="flex" alignItems="center">
             <Box w="50px" h="100%" ml="2rem">
-              <IconContext.Provider value={{ color: "#4db6ac", size: "100%" }}>
+              <IconContext.Provider value={styles}>
                 <BsMusicNoteList />
               </IconContext.Provider>
             </Box>
-            <Text fontSize={"3xl"} ml="0.5rem" color="teal.300">
+            <Text fontSize="3xl" ml="0.5rem" color="teal.300">
               uphits
             </Text>
           </Flex>

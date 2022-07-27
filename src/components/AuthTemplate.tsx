@@ -1,9 +1,13 @@
+import React from "react";
 import { Box, Divider, Flex, Heading } from "@chakra-ui/layout";
 import { BsMusicNoteList } from "react-icons/bs";
 import { IconContext } from "react-icons";
 import { TAuthTemplate } from "../types";
 
 function AuthTemplate(props: TAuthTemplate) {
+  const { form } = props;
+  const styles = React.useMemo(() => ({ color: "#4db6ac", size: "100%" }), []);
+
   return (
     <>
       <Flex
@@ -15,7 +19,7 @@ function AuthTemplate(props: TAuthTemplate) {
         justifyContent="center"
       >
         <Box w="60px" h="100%">
-          <IconContext.Provider value={{ color: "#4db6ac", size: "100%" }}>
+          <IconContext.Provider value={styles}>
             <BsMusicNoteList />
           </IconContext.Provider>
         </Box>
@@ -28,7 +32,7 @@ function AuthTemplate(props: TAuthTemplate) {
 
       <Flex justifyContent="center">
         <Box maxW="500px" mt="3rem" minW="300px" w="90%">
-          {props.form}
+          {form}
         </Box>
       </Flex>
     </>
