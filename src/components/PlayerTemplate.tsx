@@ -18,7 +18,7 @@ function PlayerTemplate({ children }) {
       </Box>
 
       <Box ml="16rem" mb="6rem">
-        content-template : {children}
+        <Box h="calc(100vh - 6rem)">{children}</Box>
       </Box>
 
       <Box pos="absolute" bottom="0" left="0" h="6rem" w="100%">
