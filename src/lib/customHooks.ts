@@ -25,9 +25,13 @@ export const useInput = (initialValue: {}): [
 };
 
 export const useUser = () => {
-  const { data, error } = useSWR("/me", fetcher);
+  const { data, error } = useSWR(["GET", "/me"], fetcher);
 
-  return { user: data, isLoading: !data && !error, isError: error };
+  return {
+    user: data && data.code === 200 ? data.result : {},
+    isLoading: !data && !error,
+    isError: error || (data && data.code !== 200),
+  };
 };
 
 export const usePlaylist = () => {
