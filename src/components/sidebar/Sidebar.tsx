@@ -46,7 +46,6 @@ function Sidebar() {
   const styles = React.useMemo(() => ({ color: "#4db6ac", size: "100%" }), []);
 
   const { playlists, isLoading, isError } = usePlaylist();
-  // console.log(playlists);
 
   return (
     <>
@@ -143,11 +142,10 @@ function Sidebar() {
           {playlists.map((playlist) => (
             <Link
               key={playlist.id}
-              href="/"
-              // href={{
-              //   pathname: "/playlist/[id]",
-              //   query: { id: playlist },
-              // }}
+              href={{
+                pathname: "/playlist/[id]",
+                query: { id: playlist.id },
+              }}
               passHref
             >
               <a>
