@@ -46,3 +46,9 @@ export const validateRoute = (
     res.json(dataObj);
   };
 };
+
+export const validateToken = (accessToken: string) => {
+  const userId = jwt.verify(accessToken, process.env.JWT_SECRET_KEY);
+  if (typeof userId === "string") return Number(userId);
+  else return Number(userId.id);
+};
