@@ -1,8 +1,24 @@
+import GradientTemplate from "../../components/GradientTemplate";
+
+import { getBgColor } from "../../lib/utilFunctions";
 import { validateToken } from "../../lib/auth";
 import prisma from "../../lib/prismaClient";
 
 export default ({ playlist }) => {
-  return <div>{playlist.songs[3].artist.name}</div>;
+  const color = getBgColor(playlist.id);
+
+  return (
+    <GradientTemplate
+      color={color}
+      roundImage={false}
+      title={playlist.name}
+      subtitle="playlist"
+      description={`${playlist.songs.length} songs`}
+      image={`https://picsum.photos/400?random=${playlist.id}`}
+    >
+      {playlist.name}
+    </GradientTemplate>
+  );
 };
 
 export const getServerSideProps = async ({ query, req }) => {
