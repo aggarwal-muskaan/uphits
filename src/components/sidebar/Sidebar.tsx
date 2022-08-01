@@ -57,7 +57,7 @@ function Sidebar() {
                 <BsMusicNoteList />
               </IconContext.Provider>
             </Box>
-            <Text fontSize="3xl" ml="0.5rem" color="teal.300">
+            <Text fontSize="3xl" ml="0.5rem" color="teal.300" fontWeight="bold">
               uphits
             </Text>
           </Flex>
