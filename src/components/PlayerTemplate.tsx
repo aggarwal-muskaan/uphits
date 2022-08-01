@@ -1,4 +1,5 @@
 import { Box } from "@chakra-ui/layout";
+import { PlayerBar } from "./music/PlayerBar";
 import Sidebar from "./sidebar/Sidebar";
 
 function PlayerTemplate({ children }) {
@@ -22,7 +23,7 @@ function PlayerTemplate({ children }) {
       </Box>
 
       <Box pos="absolute" bottom="0" left="0" h="5rem" w="100%">
-        Player
+        <PlayerBar />
       </Box>
     </Box>
   );
