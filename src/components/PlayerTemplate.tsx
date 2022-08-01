@@ -9,7 +9,7 @@ function PlayerTemplate({ children }) {
         top="0"
         left="0"
         w="16rem"
-        h="calc(100% - 6rem)"
+        h="calc(100% - 5rem)"
         py="1.5rem"
         color="grey.400"
         bg="black"
@@ -17,11 +17,11 @@ function PlayerTemplate({ children }) {
         <Sidebar />
       </Box>
 
-      <Box ml="16rem" mb="6rem">
-        <Box h="calc(100vh - 6rem)">{children}</Box>
+      <Box ml="16rem" mb="5rem">
+        <Box h="calc(100vh - 5rem)">{children}</Box>
       </Box>
 
-      <Box pos="absolute" bottom="0" left="0" h="6rem" w="100%">
+      <Box pos="absolute" bottom="0" left="0" h="5rem" w="100%">
         Player
       </Box>
     </Box>
