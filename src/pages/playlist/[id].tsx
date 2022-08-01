@@ -1,4 +1,5 @@
 import GradientTemplate from "../../components/GradientTemplate";
+import { SongsTable } from "../../components/music/SongTable";
 
 import { getBgColor } from "../../lib/utilFunctions";
 import { validateToken } from "../../lib/auth";
@@ -16,7 +17,7 @@ export default ({ playlist }) => {
       description={`${playlist.songs.length} songs`}
       image={`https://picsum.photos/400?random=${playlist.id}`}
     >
-      {playlist.name}
+      <SongsTable songs={playlist.songs} />
     </GradientTemplate>
   );
 };
