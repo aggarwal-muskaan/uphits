@@ -1,3 +1,5 @@
+import { Artist, Playlist, Song } from "@prisma/client";
+
 export type TAuthTemplate = {
   form: JSX.Element;
 };
@@ -25,4 +27,19 @@ export type TapiResponse = {
   code: number;
   message: string;
   result?: unknown;
+};
+
+export type TSongsTable = {
+  songs: Song & {
+    artist: {
+      name: string;
+      id: number;
+    };
+  };
+};
+
+export type TUserPlaylist = {
+  playlist: Playlist & {
+    songs: TSongsTable["songs"][];
+  };
 };
