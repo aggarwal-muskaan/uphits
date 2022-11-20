@@ -65,6 +65,12 @@ export const getServerSideProps: GetServerSideProps = async ({
     },
   });
 
+  if (playlist === undefined) {
+    return {
+      notFound: true,
+    };
+  }
+
   return {
     props: { playlist },
   };
