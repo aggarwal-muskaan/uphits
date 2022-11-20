@@ -23,23 +23,7 @@ function PlayerTemplate({ children }: Props) {
       </Box>
 
       <Box ml="16rem" mb="5rem">
-        <Box
-          h="calc(100vh - 5rem)"
-          sx={{
-            "&::-webkit-scrollbar": {
-              width: "4px",
-            },
-            "&::-webkit-scrollbar-track": {
-              width: "4px",
-            },
-            "&::-webkit-scrollbar-thumb": {
-              background: "red",
-              borderRadius: "24px",
-            },
-          }}
-        >
-          {children}
-        </Box>
+        <Box h="calc(100vh - 5rem)">{children}</Box>
       </Box>
 
       <Box pos="absolute" bottom="0" left="0" h="5rem" w="100%">
