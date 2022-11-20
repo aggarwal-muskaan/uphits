@@ -2,7 +2,11 @@ import { Box } from "@chakra-ui/layout";
 import { PlayerBar } from "./music/PlayerBar";
 import Sidebar from "./sidebar/Sidebar";
 
-function PlayerTemplate({ children }) {
+interface Props {
+  children: JSX.Element;
+}
+
+function PlayerTemplate({ children }: Props) {
   return (
     <Box w="100vw" h="100vh">
       <Box

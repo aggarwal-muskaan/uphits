@@ -1,10 +1,15 @@
 import { Box, Text, Flex } from "@chakra-ui/layout";
 import { Image } from "@chakra-ui/react";
+import { Artist } from "@prisma/client";
 import GradientTemplate from "../components/GradientTemplate";
 import { useUser } from "../lib/customHooks";
 import prismaClient from "../lib/prismaClient";
 
-const Home = ({ artists }) => {
+interface Props {
+  artists: Artist[];
+}
+
+const Home = ({ artists }: Props) => {
   const { user } = useUser();
 
   return (

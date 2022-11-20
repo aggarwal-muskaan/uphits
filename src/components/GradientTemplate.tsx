@@ -2,6 +2,16 @@ import React from "react";
 import { Box, Flex, Text } from "@chakra-ui/layout";
 import { Image } from "@chakra-ui/react";
 
+interface Props {
+  color: string;
+  children: JSX.Element;
+  image: string;
+  subtitle: string;
+  title: string;
+  description: string;
+  roundImage: boolean;
+}
+
 function GradientTemplate({
   color,
   children,
@@ -10,7 +20,7 @@ function GradientTemplate({
   title,
   description,
   roundImage,
-}) {
+}: Props) {
   return (
     <Box
       height="100%"

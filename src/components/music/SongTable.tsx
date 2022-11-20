@@ -5,12 +5,17 @@ import { BsFillPlayFill } from "react-icons/bs";
 import { useStoreActions } from "easy-peasy";
 
 import { formatDate, formatTime } from "../../lib/utilFunctions";
+import { TSongsTable } from "../../types";
 
-export const SongsTable = ({ songs }) => {
+interface Props {
+  songs: TSongsTable["songs"][];
+}
+
+export const SongsTable = ({ songs }: Props) => {
   const playSongs = useStoreActions((store: any) => store.changeActiveSongs);
   const setActiveSong = useStoreActions((store: any) => store.changeActiveSong);
 
-  const handlePlay = (activeSong?) => {
+  const handlePlay = (activeSong?: TSongsTable["songs"]) => {
     setActiveSong(activeSong || songs[0]);
     playSongs(songs);
   };
