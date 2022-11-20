@@ -1,12 +1,20 @@
-import { createStore, action } from "easy-peasy";
+import { createStore, action, Action } from "easy-peasy";
+import { TSongsTable } from "../types";
 
-export const store = createStore({
+export interface StoreModel {
+  activeSongs: TSongsTable["songs"][];
+  activeSong: null | TSongsTable["songs"];
+  changeActiveSongs: Action<StoreModel, TSongsTable["songs"][]>;
+  changeActiveSong: Action<StoreModel, TSongsTable["songs"]>;
+}
+
+export const store = createStore<StoreModel>({
   activeSongs: [],
   activeSong: null,
-  changeActiveSongs: action((state: any, payload) => {
+  changeActiveSongs: action((state, payload) => {
     state.activeSongs = payload;
   }),
-  changeActiveSong: action((state: any, payload) => {
+  changeActiveSong: action((state, payload) => {
     state.activeSong = payload;
   }),
 });
