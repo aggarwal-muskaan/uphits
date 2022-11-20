@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { LegacyRef, useEffect, useRef, useState } from "react";
 import {
   ButtonGroup,
   Box,
@@ -22,10 +22,16 @@ import {
 import ReactHowler from "react-howler";
 import { useStoreActions } from "easy-peasy";
 import { formatTime } from "../../lib/utilFunctions";
+import { TSongsTable } from "../../types";
 
-export const MusicControls = ({ songs, activeSong }) => {
+interface Props {
+  songs: TSongsTable["songs"][];
+  activeSong: TSongsTable["songs"];
+}
+
+export const MusicControls = ({ songs, activeSong }: Props) => {
   const [playing, setPlaying] = useState(true);
-  const [index, setIndex] = useState(
+  const [index, setIndex] = useState<number>(
     songs.findIndex((s) => s.id === activeSong.id)
   );
   const [seek, setSeek] = useState(0.0); // float value instead of Int
@@ -33,14 +39,14 @@ export const MusicControls = ({ songs, activeSong }) => {
   const [repeat, setRepeat] = useState(false);
   const [shuffle, setShuffle] = useState(false);
   const [duration, setDuration] = useState(0.0);
-  const soundRef = useRef(null);
+  const soundRef: LegacyRef<ReactHowler> = useRef(null);
   const repeatRef = useRef(repeat);
   const setActiveSong = useStoreActions((state: any) => state.changeActiveSong);
 
   useEffect(() => {
-    let timerId;
+    let timerId: number;
 
-    if (playing && !isSeeking) {
+    if (playing && !isSeeking && soundRef) {
       const f = () => {
         setSeek(soundRef.current.seek());
         timerId = requestAnimationFrame(f);
@@ -50,7 +56,9 @@ export const MusicControls = ({ songs, activeSong }) => {
       return () => cancelAnimationFrame(timerId);
     }
 
-    cancelAnimationFrame(timerId);
+    () => {
+      cancelAnimationFrame(timerId);
+    };
   }, [playing, isSeeking]);
 
   useEffect(() => {
@@ -61,7 +69,7 @@ export const MusicControls = ({ songs, activeSong }) => {
     repeatRef.current = repeat;
   }, [repeat]);
 
-  const setPlayState = (value) => {
+  const setPlayState = (value: boolean) => {
     setPlaying(value);
   };
 
@@ -83,9 +91,9 @@ export const MusicControls = ({ songs, activeSong }) => {
     setIndex((state) => {
       if (shuffle) {
         const next = Math.floor(Math.random() * songs.length);
-
         if (next === state) {
-          return nextSong();
+          nextSong();
+          return;
         }
         return next;
       }

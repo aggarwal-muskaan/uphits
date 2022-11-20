@@ -4,8 +4,14 @@ import { SongsTable } from "../../components/music/SongTable";
 import { getBgColor } from "../../lib/utilFunctions";
 import { validateToken } from "../../lib/auth";
 import prisma from "../../lib/prismaClient";
+import { TUserPlaylist } from "../../types";
+import { GetServerSideProps } from "next";
 
-export default ({ playlist }) => {
+interface Props {
+  playlist: TUserPlaylist["playlist"];
+}
+
+export default ({ playlist }: Props) => {
   const color = getBgColor(playlist.id);
 
   return (
@@ -22,7 +28,10 @@ export default ({ playlist }) => {
   );
 };
 
-export const getServerSideProps = async ({ query, req }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+  query,
+  req,
+}) => {
   let userId: number;
 
   // if invalid token, redirect to Login page
@@ -39,7 +48,7 @@ export const getServerSideProps = async ({ query, req }) => {
 
   const [playlist] = await prisma.playlist.findMany({
     where: {
-      id: +query.id, // or Number(query.id)
+      id: Number(query.id),
       userId,
     },
     include: {
