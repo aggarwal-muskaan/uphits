@@ -18,6 +18,8 @@ import {
   MdOutlinePlayCircleFilled,
   MdOutlinePauseCircleFilled,
   MdOutlineRepeat,
+  MdVolumeUp,
+  MdVolumeOff,
 } from "react-icons/md";
 import ReactHowler from "react-howler";
 import { useStoreActions } from "easy-peasy";
@@ -41,6 +43,7 @@ export const MusicControls = ({ songs, activeSong }: Props) => {
   const [duration, setDuration] = useState(0.0);
   const soundRef: LegacyRef<ReactHowler> = useRef(null);
   const repeatRef = useRef(repeat);
+  const [volume, setVolume] = useState(0.8);
   const setActiveSong = useStoreActions((state: any) => state.changeActiveSong);
 
   useEffect(() => {
@@ -122,7 +125,7 @@ export const MusicControls = ({ songs, activeSong }: Props) => {
   };
 
   return (
-    <Box>
+    <Flex width="100%">
       <Box>
         <ReactHowler
           playing={playing}
@@ -130,97 +133,129 @@ export const MusicControls = ({ songs, activeSong }: Props) => {
           ref={soundRef}
           onLoad={onLoad}
           onEnd={onEnd}
+          volume={volume}
         />
       </Box>
-      <Center color="gray.600">
-        <ButtonGroup>
-          <IconButton
-            outline="none"
-            variant="link"
-            aria-label="shuffle"
-            fontSize="24px"
-            color={shuffle ? "white" : "gray.600"}
-            onClick={onShuffle}
-            icon={<MdShuffle />}
-          />
-          <IconButton
-            outline="none"
-            variant="link"
-            aria-label="skip"
-            fontSize="24px"
-            icon={<MdSkipPrevious />}
-            onClick={prevSong}
-          />
-          {playing ? (
+      <Box width="55%" justifySelf="flex-start">
+        <Center color="gray.600">
+          <ButtonGroup>
             <IconButton
               outline="none"
               variant="link"
-              aria-label="pause"
-              fontSize="40px"
-              color="white"
-              icon={<MdOutlinePauseCircleFilled />}
-              onClick={() => setPlayState(false)}
+              aria-label="shuffle"
+              fontSize="24px"
+              color={shuffle ? "white" : "gray.600"}
+              onClick={onShuffle}
+              icon={<MdShuffle />}
             />
-          ) : (
             <IconButton
               outline="none"
               variant="link"
-              aria-label="play"
-              fontSize="40px"
-              color="white"
-              icon={<MdOutlinePlayCircleFilled />}
-              onClick={() => setPlayState(true)}
+              aria-label="skip"
+              fontSize="24px"
+              icon={<MdSkipPrevious />}
+              onClick={prevSong}
             />
-          )}
+            {playing ? (
+              <IconButton
+                outline="none"
+                variant="link"
+                aria-label="pause"
+                fontSize="40px"
+                color="white"
+                icon={<MdOutlinePauseCircleFilled />}
+                onClick={() => setPlayState(false)}
+              />
+            ) : (
+              <IconButton
+                outline="none"
+                variant="link"
+                aria-label="play"
+                fontSize="40px"
+                color="white"
+                icon={<MdOutlinePlayCircleFilled />}
+                onClick={() => setPlayState(true)}
+              />
+            )}
 
+            <IconButton
+              outline="none"
+              variant="link"
+              aria-label="next"
+              fontSize="24px"
+              icon={<MdSkipNext />}
+              onClick={nextSong}
+            />
+            <IconButton
+              outline="none"
+              variant="link"
+              aria-label="repeat"
+              fontSize="24px"
+              color={repeat ? "white" : "gray.600"}
+              onClick={onRepeat}
+              icon={<MdOutlineRepeat />}
+            />
+          </ButtonGroup>
+        </Center>
+
+        <Box color="gray.600">
+          <Flex justify="center" align="center">
+            <Box width="10%">
+              <Text fontSize="xs">{formatTime(seek)}</Text>
+            </Box>
+            <Box width="80%">
+              <RangeSlider
+                aria-label={["min", "max"]}
+                step={0.1}
+                min={0}
+                id="player-range"
+                max={duration ? (duration.toFixed(2) as unknown as number) : 0}
+                onChange={onSeek}
+                value={[seek]}
+                onChangeStart={() => setIsSeeking(true)}
+                onChangeEnd={() => setIsSeeking(false)}
+              >
+                <RangeSliderTrack bg="gray.800">
+                  <RangeSliderFilledTrack bg="gray.600" />
+                </RangeSliderTrack>
+                <RangeSliderThumb index={0} />
+              </RangeSlider>
+            </Box>
+            <Box width="10%" textAlign="right">
+              <Text fontSize="xs">{formatTime(duration)}</Text>
+            </Box>
+          </Flex>
+        </Box>
+      </Box>
+
+      <Box width="30%" alignSelf="center" pr="35px" ml="auto">
+        <Flex>
           <IconButton
             outline="none"
             variant="link"
-            aria-label="next"
-            fontSize="24px"
-            icon={<MdSkipNext />}
-            onClick={nextSong}
+            aria-label="play"
+            fontSize="22px"
+            color="gray.600"
+            icon={volume === 0 ? <MdVolumeOff /> : <MdVolumeUp />}
           />
-          <IconButton
-            outline="none"
-            variant="link"
-            aria-label="repeat"
-            fontSize="24px"
-            color={repeat ? "white" : "gray.600"}
-            onClick={onRepeat}
-            icon={<MdOutlineRepeat />}
-          />
-        </ButtonGroup>
-      </Center>
 
-      <Box color="gray.600">
-        <Flex justify="center" align="center">
-          <Box width="10%">
-            <Text fontSize="xs">{formatTime(seek)}</Text>
-          </Box>
-          <Box width="80%">
-            <RangeSlider
-              aria-label={["min", "max"]}
-              step={0.1}
-              min={0}
-              id="player-range"
-              max={duration ? (duration.toFixed(2) as unknown as number) : 0}
-              onChange={onSeek}
-              value={[seek]}
-              onChangeStart={() => setIsSeeking(true)}
-              onChangeEnd={() => setIsSeeking(false)}
-            >
-              <RangeSliderTrack bg="gray.800">
-                <RangeSliderFilledTrack bg="gray.600" />
-              </RangeSliderTrack>
-              <RangeSliderThumb index={0} />
-            </RangeSlider>
-          </Box>
-          <Box width="10%" textAlign="right">
-            <Text fontSize="xs">{formatTime(duration)}</Text>
-          </Box>
+          <RangeSlider
+            aria-label={["min", "max"]}
+            step={0.01}
+            id="volume-range"
+            min={0}
+            max={1}
+            onChange={(e) => {
+              setVolume(e[0]);
+            }}
+            value={[volume]}
+          >
+            <RangeSliderTrack bg="gray.800">
+              <RangeSliderFilledTrack bg="gray.600" />
+            </RangeSliderTrack>
+          </RangeSlider>
         </Flex>
       </Box>
-    </Box>
+    </Flex>
   );
 };

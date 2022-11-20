@@ -16,7 +16,7 @@ export const PlayerBar = () => {
               <Text fontSize="large">{activeSong.name}</Text>
               <Text fontSize="sm">{activeSong.artist.name}</Text>
             </Box>
-            <Box width="40%">
+            <Box width="70%">
               <MusicControls songs={songs} activeSong={activeSong} />
             </Box>
           </Flex>
