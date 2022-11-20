@@ -8,6 +8,7 @@ import {
   ListIcon,
   Text,
   Divider,
+  Tooltip,
 } from "@chakra-ui/react";
 import { BsMusicNoteList } from "react-icons/bs";
 import { MdHomeFilled, MdSearch, MdAddBox, MdFavorite } from "react-icons/md";
@@ -40,7 +41,7 @@ function Sidebar() {
 
   const createMenu = [
     { id: "1", label: "Create Playlist", icon: MdAddBox, route: "/" },
-    { id: "2", label: "Liked Songs", icon: MdFavorite, route: "/favorites" },
+    { id: "2", label: "Liked Songs", icon: MdFavorite, route: "/" },
   ];
 
   const styles = React.useMemo(() => ({ color: "#4db6ac", size: "100%" }), []);
@@ -75,6 +76,7 @@ function Sidebar() {
                   w="100%"
                   display="flex"
                   alignItems="center"
+                  _hover={{ color: "white" }}
                 >
                   <ListIcon
                     as={l.icon}
@@ -96,22 +98,25 @@ function Sidebar() {
           {createMenu.map((l) => (
             <Link href={l.route} passHref key={l.id}>
               <a>
-                <ListItem
-                  fontSize="14px"
-                  p="5px 26px"
-                  w="100%"
-                  display="flex"
-                  alignItems="center"
-                >
-                  <ListIcon
-                    as={l.icon}
-                    color="white"
-                    marginRight="17px"
-                    w="28px"
-                    h="28px"
-                  />
-                  <Text fontWeight="700">{l.label}</Text>
-                </ListItem>
+                <Tooltip hasArrow label="Coming soon..." placement="right-end">
+                  <ListItem
+                    fontSize="14px"
+                    p="5px 26px"
+                    w="100%"
+                    display="flex"
+                    alignItems="center"
+                    _hover={{ color: "white" }}
+                  >
+                    <ListIcon
+                      as={l.icon}
+                      color="white"
+                      marginRight="17px"
+                      w="28px"
+                      h="28px"
+                    />
+                    <Text fontWeight="700">{l.label}</Text>
+                  </ListItem>
+                </Tooltip>
               </a>
             </Link>
           ))}
@@ -149,7 +154,9 @@ function Sidebar() {
               passHref
             >
               <a>
-                <ListItem p="5px 29px">{playlist.name}</ListItem>
+                <ListItem p="5px 29px" _hover={{ color: "white" }}>
+                  {playlist.name}
+                </ListItem>
               </a>
             </Link>
           ))}

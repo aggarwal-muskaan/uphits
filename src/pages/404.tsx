@@ -1,14 +1,6 @@
 import React from "react";
-import { Center, Heading } from "@chakra-ui/layout";
-import {
-  Box,
-  Flex,
-  List,
-  ListItem,
-  ListIcon,
-  Text,
-  Divider,
-} from "@chakra-ui/react";
+import { Heading } from "@chakra-ui/layout";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import { BsMusicNoteList } from "react-icons/bs";
 import { IconContext } from "react-icons";
 import { FilledAuthButton } from "../components/shared/Button";
