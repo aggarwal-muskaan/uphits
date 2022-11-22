@@ -1,6 +1,12 @@
 import Link from "next/link";
 import { Box, Flex, Text } from "@chakra-ui/layout";
-import { useMediaQuery } from "@chakra-ui/react";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerOverlay,
+  useDisclosure,
+  useMediaQuery,
+} from "@chakra-ui/react";
 import { BsMusicNoteList } from "react-icons/bs";
 import { IconContext } from "react-icons";
 
@@ -13,6 +19,7 @@ interface Props {
 }
 
 function PlayerTemplate({ children }: Props) {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [isSmallWidthDevice] = useMediaQuery("(max-width: 810px)");
   const styles = React.useMemo(() => ({ color: "#4db6ac", size: "100%" }), []);
   console.log("isSmallWidthDevice", isSmallWidthDevice);
@@ -43,20 +50,22 @@ function PlayerTemplate({ children }: Props) {
       ) : (
         <>
           <Box bg="gray.900">
-            <Link href="/" passHref>
-              <a>
-                <Flex w="100%" h="3rem" display="flex" alignItems="center">
-                  <Box w="50px" h="70%" ml="1rem">
-                    <IconContext.Provider value={styles}>
-                      <BsMusicNoteList />
-                    </IconContext.Provider>
-                  </Box>
-                  <Text fontSize="2xl" color="teal.300" fontWeight="bold">
-                    uphits
-                  </Text>
-                </Flex>
-              </a>
-            </Link>
+            <Flex
+              w="100%"
+              h="3rem"
+              display="flex"
+              alignItems="center"
+              onClick={onOpen}
+            >
+              <Box w="50px" h="70%" ml="1rem">
+                <IconContext.Provider value={styles}>
+                  <BsMusicNoteList />
+                </IconContext.Provider>
+              </Box>
+              <Text fontSize="2xl" color="teal.300" fontWeight="bold">
+                uphits
+              </Text>
+            </Flex>
           </Box>
           <Box mb="4rem">
             <Box h="calc(100vh - 4rem)">{children}</Box>
@@ -64,6 +73,13 @@ function PlayerTemplate({ children }: Props) {
           <Box pos="absolute" bottom="0" left="0" h="4rem" w="100%">
             <PlayerBar />
           </Box>
+
+          <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
+            <DrawerOverlay />
+            <DrawerContent bg="black" color="grey.400">
+              <Sidebar />
+            </DrawerContent>
+          </Drawer>
         </>
       )}
     </Box>
