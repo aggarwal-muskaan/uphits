@@ -13,6 +13,8 @@ import { IconContext } from "react-icons";
 import { PlayerBar } from "./music/PlayerBar";
 import Sidebar from "./sidebar/Sidebar";
 import React from "react";
+import { Router } from "next/router";
+import Loading from "./shared/Loading";
 
 interface Props {
   children: JSX.Element;
@@ -22,7 +24,29 @@ function PlayerTemplate({ children }: Props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isSmallWidthDevice] = useMediaQuery("(max-width: 810px)");
   const styles = React.useMemo(() => ({ color: "#4db6ac", size: "100%" }), []);
-  console.log("isSmallWidthDevice", isSmallWidthDevice);
+
+  const [loading, setLoading] = React.useState(false);
+  React.useEffect(() => {
+    const start = () => {
+      setLoading(true);
+    };
+    const end = () => {
+      setLoading(false);
+    };
+
+    Router.events.on("routeChangeStart", start);
+    Router.events.on("routeChangeComplete", end);
+    Router.events.on("routeChangeError", end);
+    return () => {
+      Router.events.off("routeChangeStart", start);
+      Router.events.off("routeChangeComplete", end);
+      Router.events.off("routeChangeError", end);
+    };
+  }, []);
+
+  React.useEffect(() => {
+    if (loading) onClose();
+  }, [loading]);
 
   return (
     <Box w="100vw" h="100vh">
@@ -40,9 +64,15 @@ function PlayerTemplate({ children }: Props) {
           >
             <Sidebar />
           </Box>
-          <Box ml="16rem" mb="5rem">
-            <Box h="calc(100vh - 5rem)">{children}</Box>
-          </Box>
+
+          {loading ? (
+            <Loading />
+          ) : (
+            <Box ml="16rem" mb="5rem">
+              <Box h="calc(100vh - 5rem)">{children}</Box>
+            </Box>
+          )}
+
           <Box pos="absolute" bottom="0" left="0" h="5rem" w="100%">
             <PlayerBar />
           </Box>
@@ -67,9 +97,15 @@ function PlayerTemplate({ children }: Props) {
               </Text>
             </Flex>
           </Box>
-          <Box mb="4rem">
-            <Box h="calc(100vh - 4rem)">{children}</Box>
-          </Box>
+
+          {loading ? (
+            <Loading />
+          ) : (
+            <Box mb="4rem">
+              <Box h="calc(100vh - 4rem)">{children}</Box>
+            </Box>
+          )}
+
           <Box pos="absolute" bottom="0" left="0" h="4rem" w="100%">
             <PlayerBar />
           </Box>

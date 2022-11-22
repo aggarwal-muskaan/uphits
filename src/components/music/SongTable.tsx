@@ -38,7 +38,7 @@ export const SongsTable = ({ songs }: Props) => {
             <Tr>
               <Th>#</Th>
               <Th>Title</Th>
-              <Th>Date Added</Th>
+              <Th display={{ base: "none", md: "table-cell" }}>Date Added</Th>
               <Th>
                 <AiOutlineClockCircle />
               </Th>
@@ -59,7 +59,9 @@ export const SongsTable = ({ songs }: Props) => {
               >
                 <Td>{i + 1}</Td>
                 <Td>{song.name}</Td>
-                <Td>{formatDate(song.createdAt)}</Td>
+                <Td display={{ base: "none", md: "table-cell" }}>
+                  {formatDate(song.createdAt)}
+                </Td>
                 <Td>{formatTime(song.duration)}</Td>
               </Tr>
             ))}
