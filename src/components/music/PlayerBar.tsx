@@ -1,9 +1,13 @@
-import { Box, Center, Flex, Text } from "@chakra-ui/layout";
+import { Box, Flex, Text } from "@chakra-ui/layout";
 import { MusicControls } from "./MusicControls";
 import { useStoreState } from "easy-peasy";
 import { StoreModel } from "../../lib/store";
+import { useMediaQuery } from "@chakra-ui/react";
+import { MobileViewControls } from "./MobileViewControls";
 
 export const PlayerBar = () => {
+  const [isSmallWidthDevice] = useMediaQuery("(max-width: 810px)");
+
   const songs = useStoreState((state: StoreModel) => state.activeSongs);
   const activeSong = useStoreState((state: StoreModel) => state.activeSong);
 
@@ -11,15 +15,21 @@ export const PlayerBar = () => {
     <Box height="100%" width="100%" bg="gray.900" padding="10px">
       <>
         {activeSong ? (
-          <Flex align="center">
-            <Box p="10px 20px" color="white" width="30%">
-              <Text fontSize="large">{activeSong.name}</Text>
-              <Text fontSize="sm">{activeSong.artist.name}</Text>
-            </Box>
-            <Box width="70%">
-              <MusicControls songs={songs} activeSong={activeSong} />
-            </Box>
-          </Flex>
+          isSmallWidthDevice ? (
+            <>
+              <MobileViewControls songs={songs} activeSong={activeSong} />
+            </>
+          ) : (
+            <Flex align="center">
+              <Box p="10px 20px" color="white" width="30%">
+                <Text fontSize="large">{activeSong.name}</Text>
+                <Text fontSize="sm">{activeSong.artist.name}</Text>
+              </Box>
+              <Box width="70%">
+                <MusicControls songs={songs} activeSong={activeSong} />
+              </Box>
+            </Flex>
+          )
         ) : (
           <Flex
             height="100%"

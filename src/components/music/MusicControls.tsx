@@ -124,6 +124,35 @@ export const MusicControls = ({ songs, activeSong }: Props) => {
     soundRef.current.seek(e[0]);
   };
 
+  const VolumeSlider = () => (
+    <Flex>
+      <IconButton
+        outline="none"
+        variant="link"
+        aria-label="play"
+        fontSize="22px"
+        color="gray.600"
+        icon={volume === 0 ? <MdVolumeOff /> : <MdVolumeUp />}
+      />
+
+      <RangeSlider
+        aria-label={["min", "max"]}
+        step={0.01}
+        id="volume-range"
+        min={0}
+        max={1}
+        onChange={(e) => {
+          setVolume(e[0]);
+        }}
+        value={[volume]}
+      >
+        <RangeSliderTrack bg="gray.800">
+          <RangeSliderFilledTrack bg="gray.600" />
+        </RangeSliderTrack>
+      </RangeSlider>
+    </Flex>
+  );
+
   return (
     <Flex width="100%">
       <Box>
@@ -229,32 +258,7 @@ export const MusicControls = ({ songs, activeSong }: Props) => {
       </Box>
 
       <Box width="30%" alignSelf="center" pr="35px" ml="auto">
-        <Flex>
-          <IconButton
-            outline="none"
-            variant="link"
-            aria-label="play"
-            fontSize="22px"
-            color="gray.600"
-            icon={volume === 0 ? <MdVolumeOff /> : <MdVolumeUp />}
-          />
-
-          <RangeSlider
-            aria-label={["min", "max"]}
-            step={0.01}
-            id="volume-range"
-            min={0}
-            max={1}
-            onChange={(e) => {
-              setVolume(e[0]);
-            }}
-            value={[volume]}
-          >
-            <RangeSliderTrack bg="gray.800">
-              <RangeSliderFilledTrack bg="gray.600" />
-            </RangeSliderTrack>
-          </RangeSlider>
-        </Flex>
+        <VolumeSlider />
       </Box>
     </Flex>
   );

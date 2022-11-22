@@ -101,12 +101,12 @@ function PlayerTemplate({ children }: Props) {
           {loading ? (
             <Loading />
           ) : (
-            <Box mb="4rem">
-              <Box h="calc(100vh - 4rem)">{children}</Box>
+            <Box mb="4.5rem">
+              <Box h="calc(100vh - 4.5rem)">{children}</Box>
             </Box>
           )}
 
-          <Box pos="absolute" bottom="0" left="0" h="4rem" w="100%">
+          <Box pos="absolute" bottom="0" left="0" h="4.5rem" w="100%">
             <PlayerBar />
           </Box>
 
