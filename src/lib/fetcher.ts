@@ -20,12 +20,14 @@ const fetcher = async (
           message: res.statusText,
         });
         return dataObj;
-        throw new Error();
       }
 
       return res.json();
     })
-    .catch((error) => error);
+    .catch((error) => {
+      console.log(error);
+      return error;
+    });
 };
 
 export default fetcher;
