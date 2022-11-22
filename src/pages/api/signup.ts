@@ -44,7 +44,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         time: Date.now(),
       },
       process.env.JWT_SECRET_KEY || "hello-test",
-      { expiresIn: "8h" }
+      { expiresIn: "36h" }
     );
 
     res.setHeader(
