@@ -28,7 +28,13 @@ export const PlayerBar = () => {
             color="white"
           >
             <Text color="">Build with ❤️ by&nbsp;</Text>
-            <Text fontWeight="bolder">Muskaan</Text>
+            <a
+              target="_blank"
+              href="https://linkedin.com/in/aggarwal-muskaan"
+              rel="noopener noreferrer"
+            >
+              <Text fontWeight="bolder">Muskaan</Text>
+            </a>
           </Flex>
         )}
       </>
