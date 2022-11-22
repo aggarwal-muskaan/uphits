@@ -39,24 +39,35 @@ function GradientTemplate({
         },
       }}
     >
-      <Flex bg={`${color}.600`} padding="40px" align="end">
+      <Flex
+        bg={`${color}.600`}
+        padding={{ base: "15px", lg: "40px" }}
+        align={{ base: "center", lg: "end" }}
+      >
         <Box padding="20px">
           <Image
-            boxSize="160px"
+            boxSize={{ base: "100px", lg: "160px" }}
             boxShadow="2xl"
             src={image}
             borderRadius={roundImage ? "100%" : "3px"}
+            minW="90px"
           />
         </Box>
-        <Box padding="20px" lineHeight="40px" color="white">
+        <Box
+          padding="20px"
+          lineHeight={{ base: "30px", lg: "40px" }}
+          color="white"
+        >
           <Text fontSize="x-small" fontWeight="bold" casing="uppercase">
             {subtitle}
           </Text>
-          <Text fontSize="6xl">{title}</Text>
+          <Text fontSize={{ base: "4xl", lg: "6xl" }}>{title}</Text>
           <Text fontSize="x-small">{description}</Text>
         </Box>
       </Flex>
-      <Box paddingY="50px">{children}</Box>
+      <Box pt={{ base: "30px", lg: "50px" }} pb={{ base: "70px", lg: "50px" }}>
+        {children}
+      </Box>
     </Box>
   );
 }

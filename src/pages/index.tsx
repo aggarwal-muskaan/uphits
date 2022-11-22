@@ -1,4 +1,4 @@
-import { Box, Text, Flex } from "@chakra-ui/layout";
+import { Box, Text, Grid, GridItem } from "@chakra-ui/layout";
 import { Image } from "@chakra-ui/react";
 import { Artist } from "@prisma/client";
 import GradientTemplate from "../components/GradientTemplate";
@@ -28,9 +28,17 @@ const Home = ({ artists }: Props) => {
           </Text>
           <Text fontSize="md">only visible to you</Text>
         </Box>
-        <Flex>
+        <Grid
+          templateColumns={{
+            base: "repeat(2, 1fr)",
+            md: "repeat(3, 1fr)",
+            lg: "repeat(5, 1fr)",
+          }}
+          gap={1}
+          rowGap={10}
+        >
           {artists.map((artist) => (
-            <Box paddingX="10px" width="20%" key={artist.id}>
+            <GridItem paddingX="10px" key={artist.id}>
               <Box bg="gray.900" borderRadius="4px" padding="15px" width="100%">
                 <Image
                   src="https://placekitten.com/300/300"
@@ -41,9 +49,9 @@ const Home = ({ artists }: Props) => {
                   <Text fontSize="x-small">Artist</Text>
                 </Box>
               </Box>
-            </Box>
+            </GridItem>
           ))}
-        </Flex>
+        </Grid>
       </Box>
     </GradientTemplate>
   );
