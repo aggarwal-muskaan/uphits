@@ -1,6 +1,7 @@
 import { Box, Text, Grid, GridItem } from "@chakra-ui/layout";
 import { Image } from "@chakra-ui/react";
 import { Artist } from "@prisma/client";
+import Link from "next/link";
 import GradientTemplate from "../components/GradientTemplate";
 import { useUser } from "../lib/customHooks";
 import prismaClient from "../lib/prismaClient";
@@ -38,18 +39,32 @@ const Home = ({ artists }: Props) => {
           rowGap={10}
         >
           {artists.map((artist) => (
-            <GridItem paddingX="10px" key={artist.id}>
-              <Box bg="gray.900" borderRadius="4px" padding="15px" width="100%">
-                <Image
-                  src="https://placekitten.com/300/300"
-                  borderRadius="100%"
-                />
-                <Box marginTop="20px">
-                  <Text fontSize="large">{artist.name}</Text>
-                  <Text fontSize="x-small">Artist</Text>
+            <Link
+              key={artist.id}
+              href={{
+                pathname: "/artist/[id]",
+                query: { id: artist.id },
+              }}
+              passHref
+            >
+              <GridItem paddingX="10px">
+                <Box
+                  bg="gray.900"
+                  borderRadius="4px"
+                  padding="15px"
+                  width="100%"
+                >
+                  <Image
+                    src="https://placekitten.com/300/300"
+                    borderRadius="100%"
+                  />
+                  <Box marginTop="20px">
+                    <Text fontSize="large">{artist.name}</Text>
+                    <Text fontSize="x-small">Artist</Text>
+                  </Box>
                 </Box>
-              </Box>
-            </GridItem>
+              </GridItem>
+            </Link>
           ))}
         </Grid>
       </Box>

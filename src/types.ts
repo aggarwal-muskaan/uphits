@@ -43,3 +43,7 @@ export type TUserPlaylist = {
     songs: TSongsTable["songs"][];
   };
 };
+
+export type TArtistCollection = Artist & {
+  song: Song[];
+};
