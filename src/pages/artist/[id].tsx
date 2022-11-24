@@ -6,14 +6,12 @@ import { validateToken } from "../../lib/auth";
 import prisma from "../../lib/prismaClient";
 import { GetServerSideProps } from "next";
 import { TArtistCollection } from "../../types";
-import { artistsData } from "../../../prisma/artistsData";
 
 interface Props {
   collection: TArtistCollection;
 }
 
 export default ({ collection }: Props) => {
-  console.log(collection);
   const color = getBgColor(collection.id);
 
   const songs = collection.song.map((el) => ({

@@ -47,7 +47,7 @@ const Home = ({ artists }: Props) => {
               }}
               passHref
             >
-              <GridItem paddingX="10px">
+              <GridItem paddingX="10px" cursor="pointer">
                 <Box
                   bg="gray.900"
                   borderRadius="4px"
