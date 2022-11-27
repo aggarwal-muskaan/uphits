@@ -18,17 +18,17 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
   return (
     <ChakraProvider theme={theme} resetCSS>
       <>
-        <StoreProvider store={store}>
-          <>
-            {Component.authPage ? (
+        {/* <StoreProvider store={store}> */}
+        <>
+          {Component.authPage ? (
+            <Component {...pageProps} />
+          ) : (
+            <PlayerTemplate>
               <Component {...pageProps} />
-            ) : (
-              <PlayerTemplate>
-                <Component {...pageProps} />
-              </PlayerTemplate>
-            )}
-          </>
-        </StoreProvider>
+            </PlayerTemplate>
+          )}
+        </>
+        {/* </StoreProvider> */}
       </>
     </ChakraProvider>
   );
