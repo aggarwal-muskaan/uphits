@@ -32,6 +32,7 @@ interface Props {
 }
 
 export const MusicControls = ({ songs, activeSong }: Props) => {
+  console.log({ songs, activeSong });
   const [playing, setPlaying] = useState(true);
   const [index, setIndex] = useState<number>(
     songs.findIndex((s) => s.id === activeSong.id)
@@ -49,7 +50,7 @@ export const MusicControls = ({ songs, activeSong }: Props) => {
   useEffect(() => {
     let timerId: number;
 
-    if (playing && !isSeeking && soundRef) {
+    if (playing && !isSeeking && soundRef.current) {
       const f = () => {
         setSeek(soundRef.current.seek());
         timerId = requestAnimationFrame(f);
@@ -163,8 +164,11 @@ export const MusicControls = ({ songs, activeSong }: Props) => {
           onLoad={onLoad}
           onEnd={onEnd}
           volume={volume}
+          html5={true}
+          // format=['mp3']
         />
       </Box>
+
       <Box width="55%" justifySelf="flex-start">
         <Center color="gray.600">
           <ButtonGroup>

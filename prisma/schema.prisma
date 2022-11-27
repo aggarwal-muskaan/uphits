@@ -39,6 +39,7 @@ model Artist {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   song      Song[]
+  image     String
 }
 
 model Playlist {

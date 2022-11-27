@@ -53,10 +53,15 @@ const Home = ({ artists }: Props) => {
                   borderRadius="4px"
                   padding="15px"
                   width="100%"
+                  h="100%"
                 >
                   <Image
-                    src="https://placekitten.com/300/300"
+                    src={artist.image}
+                    alt="collection-display-pic"
                     borderRadius="100%"
+                    h={{ base: "90px", md: "150px" }}
+                    w={{ base: "90px", md: "150px" }}
+                    objectFit="cover"
                   />
                   <Box marginTop="20px">
                     <Text fontSize="large">{artist.name}</Text>

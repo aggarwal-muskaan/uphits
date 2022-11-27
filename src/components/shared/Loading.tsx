@@ -3,8 +3,8 @@ import { Flex, Spinner } from "@chakra-ui/react";
 export default function Loading() {
   return (
     <Flex
-      h="100vh"
-      w="100vw"
+      h="100%"
+      w="100%"
       alignItems="center"
       justifyContent="center"
       textAlign="center"

@@ -26,7 +26,7 @@ export default ({ collection }: Props) => {
       title={collection.name}
       subtitle="collection"
       description={`${collection.song.length} songs`}
-      image={`https://picsum.photos/400?random=${collection.id}`}
+      image={collection.image}
     >
       <SongsTable songs={songs} />
     </GradientTemplate>
