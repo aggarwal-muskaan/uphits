@@ -17,8 +17,7 @@ type CustomAppProps = AppProps & {
 function MyApp({ Component, pageProps }: CustomAppProps) {
   return (
     <ChakraProvider theme={theme} resetCSS>
-      <>
-        {/* <StoreProvider store={store}> */}
+      <StoreProvider store={store}>
         <>
           {Component.authPage ? (
             <Component {...pageProps} />
@@ -28,8 +27,7 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
             </PlayerTemplate>
           )}
         </>
-        {/* </StoreProvider> */}
-      </>
+      </StoreProvider>
     </ChakraProvider>
   );
 }
