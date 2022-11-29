@@ -32,7 +32,6 @@ interface Props {
 }
 
 export const MusicControls = ({ songs, activeSong }: Props) => {
-  console.log({ songs, activeSong });
   const [playing, setPlaying] = useState(true);
   const [index, setIndex] = useState<number>(
     songs.findIndex((s) => s.id === activeSong.id)
@@ -247,8 +246,15 @@ export const MusicControls = ({ songs, activeSong }: Props) => {
                 max={duration ? (duration.toFixed(2) as unknown as number) : 0}
                 onChange={onSeek}
                 value={[seek]}
-                onChangeStart={() => setIsSeeking(true)}
-                onChangeEnd={() => setIsSeeking(false)}
+                onChangeStart={(e) => {
+                  setIsSeeking(true);
+                  // console.log("on change start", e);
+                }}
+                onChangeEnd={(e) => {
+                  setIsSeeking(false);
+                  // console.log("on change end", e[0], [e]);
+                  // setSeek(e[0]);
+                }}
               >
                 <RangeSliderTrack bg="gray.800">
                   <RangeSliderFilledTrack bg="gray.600" />
