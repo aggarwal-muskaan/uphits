@@ -30,7 +30,7 @@ npx prisma studio
 
 ## Demo
 
-![uphits-demo-video](public/uphits.mp4)
+https://user-images.githubusercontent.com/54470292/204520983-ab442c02-cb49-485f-b2fe-a47cc2b7fee2.mp4
 
 Try live demo using these creds -  
 Email : test@gmail.com  
@@ -42,6 +42,10 @@ Password : password
 - Modify volume using seek bar.
 - Signup/Login using browser cookies sent by jwt.
 - View collection of different Artists & Playlist (displayed using SSR).
+
+
+
+
 
 ## Upcoming Features
 
