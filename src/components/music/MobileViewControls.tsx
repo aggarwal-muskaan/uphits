@@ -55,7 +55,7 @@ export const MobileViewControls = ({ songs, activeSong }: Props) => {
   useEffect(() => {
     let timerId: number;
 
-    if (playing && !isSeeking && soundRef) {
+    if (playing && !isSeeking && soundRef.current) {
       const f = () => {
         setSeek(soundRef.current.seek());
         timerId = requestAnimationFrame(f);
@@ -82,10 +82,12 @@ export const MobileViewControls = ({ songs, activeSong }: Props) => {
     setPlaying(value);
   };
 
+  // shuffle when next, not accounting prev
   const onShuffle = () => {
     setShuffle((state) => !state);
   };
 
+  // repeat on song end, not accounting next button
   const onRepeat = () => {
     setRepeat((state) => !state);
   };
@@ -170,6 +172,7 @@ export const MobileViewControls = ({ songs, activeSong }: Props) => {
       value={[seek]}
       onChangeStart={() => setIsSeeking(true)}
       onChangeEnd={() => setIsSeeking(false)}
+      w="95%"
     >
       <RangeSliderTrack bg="gray.800">
         <RangeSliderFilledTrack bg="gray.600" />
@@ -218,6 +221,7 @@ export const MobileViewControls = ({ songs, activeSong }: Props) => {
             onLoad={onLoad}
             onEnd={onEnd}
             volume={volume}
+            html5={true}
           />
         </Box>
 
@@ -251,13 +255,13 @@ export const MobileViewControls = ({ songs, activeSong }: Props) => {
             </Box>
 
             <Box color="gray.600" my="1rem">
-              <Flex justify="center" align="center">
+              <Flex justify="space-between" align="center">
                 <Box width="10%">
                   <Text fontSize="xs">{formatTime(seek)}</Text>
                 </Box>
-                <Box w="80%">
+                <Flex w="80%" justifyContent="center">
                   <SongDurationSlider displayThumb={true} />
-                </Box>
+                </Flex>
                 <Box width="10%" textAlign="right">
                   <Text fontSize="xs">{formatTime(duration)}</Text>
                 </Box>
