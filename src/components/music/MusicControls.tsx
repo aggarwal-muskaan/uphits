@@ -77,10 +77,12 @@ export const MusicControls = ({ songs, activeSong }: Props) => {
     setPlaying(value);
   };
 
+  // shuffle when next, not accounting prev
   const onShuffle = () => {
     setShuffle((state) => !state);
   };
 
+  // repeat on song end, not accounting next button
   const onRepeat = () => {
     setRepeat((state) => !state);
   };
